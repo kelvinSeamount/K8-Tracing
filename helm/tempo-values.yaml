@@ -1,0 +1,16 @@
+tempo:
+  
+  tag: main-814c1c6 # this is the version of tempo we want to use. You can change it to any other valid version.
+
+  metricsGenerator: # special analytics assistant that watches all the surveillance footage (traces) and creates summary reports (metrics) from them.
+    enabled: true
+    remoteWriteUrl: "http://monitoring-kube-prometheus-prometheus:9090/api/v1/write" #This is the address where the summary reports get sent
+
+
+  overrides:
+    defaults:
+      metrics_generator:
+        processors: [service-graphs, span-metrics, local-blcks] #This is a list of different types of reports to generate. Think of it as saying "I want three types of summaries
+
+persistence:
+  enabled: true  
