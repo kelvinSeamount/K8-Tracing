@@ -1,0 +1,50 @@
+prometheus:
+  prometheusSpec:
+   
+    enableRemoteWriteReceiver: true
+    
+    enableFeatures: #This is a list of special features to turn on think of it as optional add-ons you're activating
+      - exemplar-storage
+      - native-histograms
+
+grafana:
+  
+  grafana.ini:
+    auth.anonymous: # allow users to access without logging in
+      enabled: true
+      org_role: Admin  # give them admin rights
+    auth:
+      disable_login_form: true # turn off the usual login form
+    feature_toggles:
+      enable: traceqlEditor
+  
+  
+  plugins:
+    - grafana-exploretraces-app # install plugins "Explore Traces"
+  
+  
+  datasources: # tells Grafana where to get its data from 
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Tempo  # Creates a connection called "Tempo."
+          type: tempo
+          access: proxy #Grafana will act as a middleman when fetching data from Tempo.
+          url: http://tempo:3100  #This is the address where Tempo lives 
+          uid: tempo
+          jsonData:
+            httpMethod: GET
+            serviceMap: # when showing the relationship map between services, get the metrics from Prometheus
+              datasourceUid: prometheus
+            tracesToMetrics: #  creates the magical link between traces and metrics.
+              datasourceUid: prometheus
+
+
+alertmanager:
+  enabled: false  
+
+nodeExporter:
+  enabled: false  
+
+prometheus-node-exporter:
+  enabled: false  
