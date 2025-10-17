@@ -1,7 +1,7 @@
 alloy:
   configMap:
     content: |
-     # This configuration file is used to configure the OpenTelemetry Collector from alloy.
+     // This configuration file is used to configure the OpenTelemetry Collector from alloy.
       otelcol.receiver.otlp "otlp_receiver" {
         grpc {
           endpoint = "0.0.0.0:4317"
@@ -14,7 +14,7 @@ alloy:
         }
       }
       
-      # This is an OTLP exporter that specifically sends data to Tempo (the trace storage system)
+      // This is an OTLP exporter that specifically sends data to Tempo (the trace storage system)
       otelcol.exporter.otlp "tempo" {
         client {
           endpoint = "tempo:4317"
@@ -24,7 +24,7 @@ alloy:
         }
       }
 
-# this section makes sure the doors we mentioned earlier are actually open and accessible.
+
 extraPorts:
     - name: otlp-grpc
       port: 4317
