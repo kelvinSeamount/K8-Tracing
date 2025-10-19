@@ -1,7 +1,7 @@
 alloy:
   configMap:
     content: |
-     // This configuration file is used to configure the OpenTelemetry Collector from alloy.
+      // This configuration file is used to configure the OpenTelemetry Collector from alloy.
       otelcol.receiver.otlp "otlp_receiver" {
         grpc {
           endpoint = "0.0.0.0:4317"
@@ -23,9 +23,8 @@ alloy:
           }
         }
       }
-
-
-extraPorts:
+  
+  extraPorts:
     - name: otlp-grpc
       port: 4317
       targetPort: 4317
