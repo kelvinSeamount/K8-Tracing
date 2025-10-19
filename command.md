@@ -34,6 +34,14 @@ Deploy Alloy
   --values helm/alloy-values.yaml \
   --wait
 
-   Deploy trace generator
+Deploy trace generator
 
    kubectl apply -f trace-generator.yaml
+
+
+Check the logs to see if traces are being sent
+
+   kubectl logs -n monitoring deployment/k6-trace-generator
+
+port-forward
+   kubectl port-forward -n monitoring svc/monitoring-kube-prometheus-grafana 3000:80
